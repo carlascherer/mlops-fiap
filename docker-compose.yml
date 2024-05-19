@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  model-manager:
+    build:
+      context: ./model-manager
+    container_name: model_manager
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./model-manager:/myServer
+      - ./logs/model-manager:/log
+    command: python /myServer/modelmanager.py
+
+  propensity-model:
+    build:
+      context: ./propensity-model
+    container_name: propensity_model
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./propensity-model:/app
+      - ./logs/propensity-model:/log
+    command: python /app/inferencia.py
